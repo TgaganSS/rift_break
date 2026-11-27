@@ -8,6 +8,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: riftbreak-app
     steps:
       - uses: actions/checkout@v4
 
@@ -29,7 +32,7 @@ jobs:
           npx cap sync android
 
       - name: Build debug APK
-        working-directory: android
+        working-directory: riftbreak-app/android
         run: |
           chmod +x gradlew
           ./gradlew assembleDebug
@@ -37,4 +40,4 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: riftbreak-apk
-          path: android/app/build/outputs/apk/debug/app-debug.apk
+          path: riftbreak-app/android/app/build/outputs/apk/debug/app-debug.apk
